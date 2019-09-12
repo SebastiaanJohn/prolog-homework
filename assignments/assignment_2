@@ -7,3 +7,27 @@ Solve Exercise 3.5 from the Lecture Notes (extracting an element from a list).
 Solve Exercise 3.9 from the Lecture Notes (people database).
 */
 
+% 2.10
+% a)
+successor(List, Result) :-
+    append(List, [x], Result).
+
+% b)
+plus(List1, List2, Result) :-
+    append(List1, List2, Result).
+
+% c)
+times([], [], []).
+
+times([_|T], List2, Result) :-
+    times(T, List2, [List2|Result]).
+
+
+% 3.2
+square(N, Val) :-
+    writeln(Val).
+    
+    
+    
+
+    
