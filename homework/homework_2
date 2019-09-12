@@ -138,117 +138,45 @@ status(Commands, Position, Orientation) :-
 status((X, Y), Orientation, [],  (X, Y), Orientation).
 
 % status/5 right rotations
-status((X, Y), north, [right|Rest], Position, Orientation) :-
-    % north_right((X, Y),
-    %             _,
-    %             Rest,
-    %             Position,
-    %             Orientation). 
+status((X, Y), north, [right|Rest], Position, Orientation) :- % N -> E
     status((X, Y), east, Rest, Position, Orientation).  
 
-status((X, Y), east, [right|Rest], Position, Orientation) :-
-    east_right((X, Y),
-               _,
-               Rest,
-               Position,
-               Orientation).
+status((X, Y), east, [right|Rest], Position, Orientation) :- % E -> S
+    status((X, Y), south, Rest, Position, Orientation).
 
-status((X, Y), south, [right|Rest], Position, Orientation) :-
-    south_right((X, Y),
-                _,
-                Rest,
-                Position,
-                Orientation).
+status((X, Y), south, [right|Rest], Position, Orientation) :- % S -> W
+    status((X, Y), west, Rest, Position, Orientation).
 
-status((X, Y), west, [right|Rest], Position, Orientation) :-
-    west_right((X, Y),
-               _,
-               Rest,
-               Position,
-               Orientation).
+status((X, Y), west, [right|Rest], Position, Orientation) :- % W -> N
+    status((X, Y), north, Rest, Position, Orientation).
 
 % status/5 left rotations
-status((X, Y), north, [left|Rest], Position, Orientation) :-
-    north_left((X, Y),
-               _,
-               Rest,
-               Position,
-               Orientation).
+status((X, Y), north, [left|Rest], Position, Orientation) :- % N -> W
+    status((X, Y), west, Rest, Position, Orientation).
 
-status((X, Y), east, [left|Rest], Position, Orientation) :-
-    east_left((X, Y), _, Rest, Position, Orientation).
+status((X, Y), east, [left|Rest], Position, Orientation) :- % E -> N
+    status((X, Y), north, Rest, Position, Orientation).
 
-status((X, Y), south, [left|Rest], Position, Orientation) :-
-    south_left((X, Y),
-               _,
-               Rest,
-               Position,
-               Orientation).
+status((X, Y), south, [left|Rest], Position, Orientation) :- % S -> E
+    status((X, Y), east, Rest, Position, Orientation).
 
-status((X, Y), west, [left|Rest], Position, Orientation) :-
-    west_left((X, Y), _, Rest, Position, Orientation).
+status((X, Y), west, [left|Rest], Position, Orientation) :- % W -> S
+    status((X, Y), south, Rest, Position, Orientation).
 
 % status/5 movement
-status((X, Y), north, [move|Rest], Position, Orientation) :-
-    north_move((X, Y),
-               _,
-               Rest,
-               Position,
-               Orientation).
-
-status((X, Y), east, [move|Rest], Position, Orientation) :-
-    east_move((X, Y), _, Rest, Position, Orientation).
-
-status((X, Y), south, [move|Rest], Position, Orientation) :-
-    south_move((X, Y),
-               _,
-               Rest,
-               Position,
-               Orientation).
-
-status((X, Y), west, [move|Rest], Position, Orientation) :-
-    west_move((X, Y), _, Rest, Position, Orientation).
-
-% right rotations
-north_right((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), east, Rest, Position, Orientation).
-
-east_right((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), south, Rest, Position, Orientation).
-
-south_right((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), west, Rest, Position, Orientation).
-
-west_right((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), north, Rest, Position, Orientation).
-
-% left rotations
-north_left((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), west, Rest, Position, Orientation).
-
-east_left((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), north, Rest, Position, Orientation).
-
-south_left((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), east, Rest, Position, Orientation).
-
-west_left((X, Y), _, Rest, Position, Orientation) :-
-    status((X, Y), south, Rest, Position, Orientation).
-
-% movements
-north_move((X, Y), _, Rest, Position, Orientation) :-
+status((X, Y), north, [move|Rest], Position, Orientation) :- % (X,Y) -> (X,Y+1)
     Y1 is Y+1,
     status((X, Y1), north, Rest, Position, Orientation).
 
-east_move((X, Y), _, Rest, Position, Orientation) :-
+status((X, Y), east, [move|Rest], Position, Orientation) :- % (X,Y) -> (X+1,Y)
     X1 is X+1,
     status((X1, Y), east, Rest, Position, Orientation).
 
-south_move((X, Y), _, Rest, Position, Orientation) :-
+status((X, Y), south, [move|Rest], Position, Orientation) :- % (X,Y) -> (X,Y-1)
     Y1 is Y-1,
     status((X, Y1), south, Rest, Position, Orientation).
 
-west_move((X, Y), _, Rest, Position, Orientation) :-
+status((X, Y), west, [move|Rest], Position, Orientation) :- % (X,Y) -> (X-1,Y)
     X1 is X-1,
     status((X1, Y), west, Rest, Position, Orientation).
 
