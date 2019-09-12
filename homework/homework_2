@@ -10,7 +10,7 @@
    * copied from other sources. 
    */
 % no. of hours in lab: 4
-% no. of hours spent on homework assignment: 
+% no. of hours spent on homework assignment: 6
 %++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %Question 1
 %++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -38,7 +38,7 @@ sublist([H|T], Arg2) :-
 % 'tic' is the principal functor and an prefix which is right-associative.
 % 'tac' is the infix because it is in the middle.
 :- op(300, fy, tic). 
-:- op(200, xfx, tac).
+:- op(200, fy, tac).
 
 % b)
 
@@ -185,11 +185,8 @@ status((X, Y), west, [move|Rest], Position, Orientation) :- % (X,Y) -> (X-1,Y)
 %++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 % a)
-% The fibonacci number at f0 = 0.
-fibonacci(0, 0).
-
-% The fubonacci number at f1 = 1.
-fibonacci(1, 1).
+fibonacci(0, 0). % basecase where N = 0
+fibonacci(1, 1). % basecase where N = 1
 
 /*
 If N is greater then or equal to 2, N1 is equal to N-1, and N2 is equal to N-2.
@@ -212,3 +209,27 @@ fibonacci(N, X) :-
 */
 
 % c)
+fastfibo(0, 0). % basecase where N = 0
+fastfibo(1, 1). % basecase where N = 1
+
+/*
+The main two advantages with this version is the use of tail recursion,  
+which means that the recursive call is the last thing executed by the function,
+and that it saves the two previous fibonacci numbers. 
+This will make sure that prolog doesn't run out of memory at very large numbers.
+*/
+fastfibo(N, X) :- % every other case where N>=2
+    N>=2,
+    fastfibo(0, 1, 2, N, X).
+
+fastfibo(X1, X2, N, N, X) :-
+    X is X1+X2.
+
+fastfibo(X1, X2, X3, N, X) :-
+    Y is X1+X2,
+    X4 is X3+1,
+    fastfibo(X2, Y, X4, N, X).
+/*
+The main thing learned is that the first solution that might come to mind is not always
+the best solution. Futhermore, creating memory efficient programs is very important.
+*/
