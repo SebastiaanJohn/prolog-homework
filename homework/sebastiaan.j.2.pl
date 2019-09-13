@@ -233,3 +233,6 @@ fastfibo(X1, X2, X3, N, X) :-
 The main thing learned is that the first solution that might come to mind is not always
 the best solution. Futhermore, creating memory efficient programs is very important.
 */
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Self−check passed!
