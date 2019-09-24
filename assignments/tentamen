@@ -1,0 +1,17 @@
+% Problem Solving and Search: Exam A
+% 25 September 2018
+
+% question 1
+% (a)
+
+/*
+(i) X = 0
+(ii) X = []
+(iii) X = c
+(iv) X = [a,c]
+(v) X = []
+*/
+
+% (b)
+member2(X, List) :- 
+    append(X, )

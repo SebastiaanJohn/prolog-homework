@@ -1,0 +1,57 @@
+/*
+Read Chapter 5 ‘Backtracking, cuts and negation’ from the Lecture Notes. 
+Solve Exercise 5.1 from the Lecture Notes (explaining queries involving cuts). 
+Solve Exercise 5.2 from the Lecture Notes (understanding programs with cut). 
+Solve Exercise 5.3 from the Lecture Notes (Euclid’s algorithm). 
+*/
+
+% exercise 5.2
+result([_, E|L], [E|M]) :-
+    !,
+    result(L, M).
+
+result(_, []).
+
+% exercise 5.3
+% gcd(N1, N2, X) :-
+%     N1>0,
+%     N2>0,
+%     gcd(N1, N2, 0, X).
+
+% gcd(_, 1, _, 1) :-
+%     !.
+
+% gcd(1, _, _, 1) :-
+%     !.
+
+% gcd(N1, N2, 0, X) :-
+%     N1>N2,
+%     gcd(N1, N2, N1, X).
+
+% gcd(N1, N2, 0, X) :-
+%     N1<N2,
+%     gcd(N1, N2, N2, X).
+
+% gcd(N1, N2, Acc, Acc) :-
+%     Acc mod N1=:=0,
+%     Acc mod N2=:=0.
+gcd(X, 0, X) :-
+    !.
+
+gcd(0, X, X) :-
+    !.
+
+gcd(X, Y, D) :-
+    X>Y,
+    !,
+    Z is X mod Y,
+    gcd(Y, Z, D).
+
+gcd(X, Y, D) :-
+    Z is Y mod X,
+    gcd(X, Z, D).
+
+
+append2([], X, X).
+append2([H|T], X, [H|S]) :-
+    append(T, X, S).

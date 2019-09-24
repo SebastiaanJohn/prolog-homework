@@ -9,25 +9,24 @@ Solve Exercise 3.9 from the Lecture Notes (people database).
 
 % 2.10
 % a)
-successor(List, Result) :-
-    append(List, [x], Result).
-
+successor([], [x]). % basecase
+successor([H|T], [x, H|T]). % everyother case
+    
 % b)
-plus(List1, List2, Result) :-
-    append(List1, List2, Result).
+plus([], [], []) :- % basecase
+    !.
+
+plus(Ls1, Ls2, Result) :- % othercases
+    append(Ls1, Ls2, Result).
+
 
 % c)
-times([], [], []).
+times([], _, []) :-
+    !.
 
-times([_|T], List2, Result) :-
-    times(T, List2, [List2|Result]).
+times(_, [], []) :-
+    !.
 
-
-% 3.2
-square(N, Val) :-
-    writeln(Val).
-    
-    
-    
-
-    
+times([_|T], Ls, Result) :-
+    append(Ls, Result, Result2),
+    times(T, Ls, Result2).

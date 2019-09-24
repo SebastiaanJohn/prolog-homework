@@ -1,0 +1,53 @@
+/*
+Exercise 1.1
+
+(a)
+f, 'hello', this_is_it
+(b)
+A, Paul, _, _abc
+(c)
+X = a
+Y = b
+*/
+
+% Exercise 1.3.
+female(sandra).
+female(juliet).
+female(lisa).
+male(peter).
+male(paul).
+male(dick).
+male(bob).
+male(harry).
+parent(bob, lisa).
+parent(bob, paul).
+parent(bob, mary).
+parent(juliet, lisa).
+parent(juliet, paul).
+parent(juliet, mary).
+parent(peter, harry).
+parent(lisa, harry).
+parent(mary, dick).
+parent(mary, sandra).
+
+% (a)
+father(X) :-
+    male(X),
+    parent(X, _),
+    !.
+
+sister(X, Y) :-
+    female(X),
+    parent(Z, X),
+    parent(Z, Y),
+    X\=Y.
+
+grandmother(X, Z) :-
+    female(X),
+    parent(X, Y),
+    parent(Y, Z).
+
+cousin(X, Y) :-
+    parent(Z1, Y),
+    parent(Z2, X),
+    sister(Z1, Z2).
