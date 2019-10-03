@@ -1,0 +1,27 @@
+check(Rel, A, B) :-
+    Goal=..[Rel, A, B],
+    call(Goal).
+
+swap(Rel, [A, B|List], [B, A|List]) :-
+    check(Rel, B, A).
+
+swap(Rel, [A|List], [A|NewList]) :-
+    swap(Rel, List, NewList).
+
+bubblesort(Rel, List, SortedList) :-
+    swap(Rel, List, NewList),
+    !,
+    bubblesort(Rel, NewList, SortedList).
+
+bubblesort(_, SortedList, SortedList).
+
+
+gen_random_list(0, _, []).
+
+gen_random_list(Length, Max_num, [Random|List]) :-
+    Length>0,
+    Lenght1 is Length-1,
+    random_between(1, Max_num, Random),
+    gen_random_list(Lenght1, Max_num, List).
+
+    
