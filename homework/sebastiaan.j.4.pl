@@ -230,32 +230,70 @@ random numbers between 1 and 500 using quicksor, which took 5.133 seconds.
 %++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 %Question 5
 %++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Basecase for line
 line(0, _).
 
+% Predicate line that loops and prints variable 
+% char untill Length is equal to 0 and basecase gets activated.
 line(Length, Char) :-
     write(Char),
-    Length1 is Length-1,
-    line(Length1, Char).
+    LengthN is Length-1,
+    line(LengthN, Char).
 
-chart(_, Counter, _, _, Counter).
+% Basecase of chart/5.
+chart(_, Acc, _, _, Acc) :-
+    !.
 
-chart(Algorithm, Length, MaxElem, N, Counter) :-
-    Counter>0,
-    Counter<Length,
-    random_experiments(Algorithm, Counter, MaxElem, N, AvgCount),
-    write(Counter),
+/*
+First checks if the accumulator is less then or equal to the Length of the max
+list length.
+Then it calls random_experiments/5 to run the experiments.
+It then writes the accumulator number and a '>'.
+Futhermore, it ads 1 to the accumulator and uses recursion untill Acc > Length.
+*/
+chart(Algorithm, Length, MaxElem, N, Acc) :-
+    Acc=<Length,
+    random_experiments(Algorithm, Acc, MaxElem, N, AvgCount),
+    write(Acc),
     write(" > "),
     line(AvgCount, "*"),
     nl,
-    Counter2 is Counter+1,
-    chart(Algorithm, Length, MaxElem, N, Counter2).
+    AccN is Acc+1,
+    chart(Algorithm, Length, MaxElem, N, AccN).
 
-chart(_, _, _, 0).
+chart(_, 0, _, 0) :-
+    !.
 
-% chart(Algorithm, Length, MaxNum, MaxExperiments)
+% Predicate chart ads an accumulator and sets it to 1,
+% add 1 to Length, and calls chart/5.
 chart(Algorithm, Length, MaxElem, N) :-
-    chart(Algorithm, Length, MaxElem, N, 1).
+    % chart(Algorithm, Length, MaxNum, MaxExperiments)
+    LengthN is Length+1,
+    chart(Algorithm, LengthN, MaxElem, N, 1).
 
+/*
+?- chart(bubblesort, 8, 50, 100).
+1 >
+2 > *
+3 > ****
+4 > *********
+5 > ***************
+6 > **************************
+7 > ****************************************
+8 > ***********************************************************
+true
+
+?- chart(quicksort, 8, 50, 100).
+1 >
+2 > *
+3 > ***
+4 > *****
+5 > *******
+6 > **********
+7 > **************
+8 > *****************
+true
+*/
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++
 % Self−check passed!
