@@ -1,0 +1,23 @@
+/*
+split list between two halves at pivot X
+sort right half
+sort left half
+place pivot X between lists so that its sorted
+*/
+
+
+% user interface
+check(Rel, A, B) :-
+    Goal=..[Rel, A, B],
+    call(Goal).
+
+
+
+% problem
+move(Stacks, NewStacks) :-
+    select([Top|Stack1], Stacks, Rest),
+    select(Stack2, Rest, OtherStacks),
+    NewStacks=[Stack1, [Top|Stack2]|OtherStacks].
+
+goal(Stacks) :-
+    member([a, b, c], Stacks).
